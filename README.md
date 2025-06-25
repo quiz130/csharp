@@ -73,3 +73,7 @@ The **Common Language Runtime(CLR)** it's what actually executes your .NET appli
 4. 🧠 The **JIT Compiler** translates IL into native machine code
 5. 🧩 The code runs on your operating system with full runtime services
 
+
+#  Global using in C#
+ 
+> You can import a namespace in one .cs file and it will be available throughout all .cs files instead of having to import the namespace at the top of every file that needs it. You could put  the global using statements in the GlobalUsings.cs with the contents being all your global using statements. 
