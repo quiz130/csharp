@@ -109,3 +109,55 @@ Raw string literals are convenient for entering any arbitrary text without needi
               }
               """;
  Console.WriteLine(json); ```
+
+ # Numbers 
+
+> You can use ``0b_number`` to write a number in binary.
+> You can use ``0x_number`` to write a number in hexadecimal.
+> You can use _ as digit seperator.
+
+> In C# the special type named object can store any type of data.
+
+Suffixes for numbers :
+* L: Compiler infers long
+* M: Compiler infers decimal
+* D: Compiler infers double
+* F: Compiler infers float
+
+### Null Forgiving operator ``!``
+
+It tells the compiler that it won't return null, but you need to ensure it.
+
+### Switch expressions for reference types 
+
+`` message = animal switch
+  {
+    Cat fourLeggedCat when fourLeggedCat.Legs == 4
+        => $"The cat named {fourLeggedCat.Name} 
+    Cat wildCat when wildCat.IsDomestic == false
+        => $"The non-domestic cat is named {wildCat}",
+    Cat cat
+        => $"The cat is named {cat.Name}.",
+    Spider spider when spider.IsVenomous
+        => $"The {spider.Name} spider is venomous."
+    null =>
+           $"The animal is null."'
+    _ =>
+           $"Nothing"
+  };
+
+### Foreach :
+
+The `foreach` statement can be used with any type that implements the following pattern:
+
+- The type must have a `GetEnumerator` method that returns an enumerator object.
+- The enumerator object must have:
+    - A `Current` property, which provides access to the current element in the collection.
+    - A `MoveNext` method, which advances to the next element and returns `true` if there are more elements, or `false` if the end of the collection has been reached.
+
+This allows `foreach` to iterate over arrays, collections, and any custom types that follow this pattern.
+
+
+### Casting :
+
+Implicit casting happens automatically, and it is safe, meanwhile explicit  casting must be performed manually because it may lose information.
