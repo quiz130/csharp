@@ -77,3 +77,9 @@ The **Common Language Runtime(CLR)** it's what actually executes your .NET appli
 #  Global using in C#
  
 > You can import a namespace in one .cs file and it will be available throughout all .cs files instead of having to import the namespace at the top of every file that needs it. You could put  the global using statements in the GlobalUsings.cs with the contents being all your global using statements. 
+
+---
+
+### Types
+
+In C# every type can be **categorized as a class, struct, enum, interface, delegate**. For example, the C# keyword string is a class, but int is struct from System.Int32 where int is an allias.
