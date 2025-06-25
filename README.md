@@ -83,3 +83,29 @@ The **Common Language Runtime(CLR)** it's what actually executes your .NET appli
 ### Types
 
 In C# every type can be **categorized as a class, struct, enum, interface, delegate**. For example, the C# keyword string is a class, but int is struct from System.Int32 where int is an allias.
+
+### Verbatim literal string
+
+A literal string prefixed with @ to disable escape characters so that a backslash is a backslash. It also allows the string value to span multiple lines because the whitespace characters are treated as themselves instead of instructions to the compiler.
+<code>string filePath = @"C:\test\projects"</code>
+
+### Raw string literals
+
+Raw string literals are convenient for entering any arbitrary text without needing to escape the contents. They make it easy to define literals containing other languages like XML, HTML, or JSON.
+
+``string xml = """
+             <person age="50">
+               <first_name>Mark</first_name>
+             </person>
+             """; ``
+
+**You can also use raw interpolated string literals : 
+``var person = new { FirstName = "Alice", Age = 5
+ string json = $$"""
+              {
+                "first_name": "{{person.FirstNa
+                "age": {{person.Age}},
+                "calculation": "{{{ 1 + 2 }}}"
+              }
+              """;
+ Console.WriteLine(json); ```
