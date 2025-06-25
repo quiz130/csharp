@@ -144,7 +144,7 @@ It tells the compiler that it won't return null, but you need to ensure it.
            $"The animal is null."'
     _ =>
            $"Nothing"
-  };
+  }; ``
 
 ### Foreach :
 
