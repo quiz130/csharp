@@ -80,16 +80,16 @@ The **Common Language Runtime(CLR)** it's what actually executes your .NET appli
 
 ---
 
-### Types
+### 🚀 Types
 
-In C# every type can be **categorized as a class, struct, enum, interface, delegate**. For example, the C# keyword string is a class, but int is struct from System.Int32 where int is an allias.
+In C# every type can be **categorized as a class, struct, enum, interface, delegate**. For example, the C# keyword string is a class, but int is struct from **System.Int32** where int is an *allias*.
 
-### Verbatim literal string
+### 🎊 Verbatim literal string
 
-A literal string prefixed with @ to disable escape characters so that a backslash is a backslash. It also allows the string value to span multiple lines because the whitespace characters are treated as themselves instead of instructions to the compiler.
+A literal string prefixed with **@** to disable escape characters so that a backslash is a backslash. It also allows the string value to span multiple lines because the whitespace characters are treated as themselves instead of instructions to the compiler.
 <code>string filePath = @"C:\test\projects"</code>
 
-### Raw string literals
+### 🎎 Raw string literals
 
 Raw string literals are convenient for entering any arbitrary text without needing to escape the contents. They make it easy to define literals containing other languages like XML, HTML, or JSON.
 
@@ -119,16 +119,16 @@ Raw string literals are convenient for entering any arbitrary text without needi
 > In C# the special type named object can store any type of data.
 
 Suffixes for numbers :
-* L: Compiler infers long
-* M: Compiler infers decimal
-* D: Compiler infers double
-* F: Compiler infers float
+* **L**: Compiler infers long
+* **M**: Compiler infers decimal
+* **D**: Compiler infers double
+* **F**: Compiler infers float
 
-### Null Forgiving operator ``!``
+### 🙏 Null Forgiving operator ``!``
 
 It tells the compiler that it won't return null, but you need to ensure it.
 
-### Switch expressions for reference types 
+### 🧲 Switch expressions for reference types 
 
 `` message = animal switch
   {
@@ -160,4 +160,4 @@ This allows `foreach` to iterate over arrays, collections, and any custom types 
 
 ### Casting :
 
-Implicit casting happens automatically, and it is safe, meanwhile explicit  casting must be performed manually because it may lose information.
+**Implicit casting** happens automatically, and it is safe, meanwhile **explicit  casting** must be performed manually because it may lose information.
