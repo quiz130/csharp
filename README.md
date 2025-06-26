@@ -82,25 +82,28 @@ The **Common Language Runtime(CLR)** it's what actually executes your .NET appli
 
 ### 🚀 Types
 
-In C# every type can be **categorized as a class, struct, enum, interface, delegate**. For example, the C# keyword string is a class, but int is struct from **System.Int32** where int is an *allias*.
+In C# every type can be **categorized as a class, struct, enum, interface, delegate**. For example, the C# keyword string is a class, but int is struct from `System.Int32` where int is an *allias*.
 
 ### 🎊 Verbatim literal string
 
-A literal string prefixed with **@** to disable escape characters so that a backslash is a backslash. It also allows the string value to span multiple lines because the whitespace characters are treated as themselves instead of instructions to the compiler.
+A literal string prefixed with `@` to disable escape characters so that a backslash is a backslash. It also allows the string value to span multiple lines because the whitespace characters are treated as themselves instead of instructions to the compiler.
 <code>string filePath = @"C:\test\projects"</code>
 
 ### 🎎 Raw string literals
 
-Raw string literals are convenient for entering any arbitrary text without needing to escape the contents. They make it easy to define literals containing other languages like XML, HTML, or JSON.
+Raw string literals are convenient for entering any arbitrary text without needing to escape the contents. They make it easy to define literals containing other languages like `XML`, `HTML`, or `JSON`.
 
-``string xml = """
+```c#
+string xml = """
              <person age="50">
                <first_name>Mark</first_name>
              </person>
-             """; ``
+             """; 
+```
 
-**You can also use raw interpolated string literals : 
-``var person = new { FirstName = "Alice", Age = 5
+You can also use **raw interpolated string literals** : 
+```c#
+var person = new { FirstName = "Alice", Age = 5
  string json = $$"""
               {
                 "first_name": "{{person.FirstNa
@@ -108,13 +111,14 @@ Raw string literals are convenient for entering any arbitrary text without needi
                 "calculation": "{{{ 1 + 2 }}}"
               }
               """;
- Console.WriteLine(json); ```
+ Console.WriteLine(json); 
+ ```
 
  # Numbers 
 
-> You can use ``0b_number`` to write a number in binary.
-> You can use ``0x_number`` to write a number in hexadecimal.
-> You can use _ as digit seperator.
+> You can use `0b_number` to write a number in binary.
+> You can use `0x_number` to write a number in hexadecimal.
+> You can use `_` as digit seperator.
 
 > In C# the special type named object can store any type of data.
 
@@ -124,27 +128,29 @@ Suffixes for numbers :
 * **D**: Compiler infers double
 * **F**: Compiler infers float
 
-### 🙏 Null Forgiving operator ``!``
+### 🙏 Null Forgiving operator `!`
 
 It tells the compiler that it won't return null, but you need to ensure it.
 
 ### 🧲 Switch expressions for reference types 
 
-`` message = animal switch
-  {
-    Cat fourLeggedCat when fourLeggedCat.Legs == 4
-        => $"The cat named {fourLeggedCat.Name} 
-    Cat wildCat when wildCat.IsDomestic == false
-        => $"The non-domestic cat is named {wildCat}",
-    Cat cat
-        => $"The cat is named {cat.Name}.",
-    Spider spider when spider.IsVenomous
-        => $"The {spider.Name} spider is venomous."
-    null =>
-           $"The animal is null."'
-    _ =>
-           $"Nothing"
-  }; ``
+```c#
+message = animal switch
+{
+  Cat fourLeggedCat when fourLeggedCat.Legs == 4
+      => $"The cat named {fourLeggedCat.Name} 
+  Cat wildCat when wildCat.IsDomestic == false
+      => $"The non-domestic cat is named {wildCat}",
+  Cat cat
+      => $"The cat is named {cat.Name}.",
+  Spider spider when spider.IsVenomous
+      => $"The {spider.Name} spider is venomous."
+  null =>
+          $"The animal is null."'
+  _ =>
+          $"Nothing"
+}; 
+```
 
 ### Foreach :
 
@@ -161,3 +167,50 @@ This allows `foreach` to iterate over arrays, collections, and any custom types 
 ### Casting :
 
 **Implicit casting** happens automatically, and it is safe, meanwhile **explicit  casting** must be performed manually because it may lose information.
+
+## 🧪 Unit testing
+
+**Unit testing** is a practice where you test a small unit before they are integrated together or seen by user acceptance testers. The principle where you create the unit tests before you write the code is called **Test-Driven Development (TDD)**. 
+
+**Types of testing :**
+
+- **Unit** : Tests the smallest unit of code, typically a method or function. Unit testing is performed on a unit of code isolated from its dependencies by mocking them if needed. Each unit should have multiple tests: some with typical inputs and expected outputs, some with extreme input values to test boundaries, and some with
+deliberately wrong inputs to test exception handling.
+- **Integration** : Tests if the smaller units and larger components work together as a single piece of software. Sometimes involves integrating with external components for which you do not have source code.
+- **End to end testing(E2E)** : End-to-end testing is a process that tests the entire application flow—from start to finish—simulating real user scenarios to ensure all parts of the system work together correctly.
+
+> A **class library** is a package of code that can be distributed and referenced by other .NET applications.
+
+## Writing unit tests:
+
+**A well-written unit test will have three parts:**
+* **Arrange** : This part will declare and instantiate variables for input and output.
+* **Act** : This part will execute the unit that you are testing. In our case, that means calling the method that we want to test.
+* **Assert** : This part will make one or more assertions about the output. An assertion is a belief that, if not true, indicates a failed test. For example, when adding 2 and 2, we would expect the result to be 4
+
+### How to throw errors
+
+Instead of using an if and throwing an exception you can just the static methods of 
+``ArgumentException,  ArgumentOutOfRangeException, ArgumentNullException`` static classes. For example :
+```c#
+ArgumentException.ThrowIfNullOrWhiteSpace(parameter, paramName);
+```
+
+### Testing throwed exceptions:
+
+You can test a method that throws an exception :
+
+```c#
+[Fact]
+public void ProfileRepository_GetSettingsForUserIDWithInvalidArguments_ThrowsArgumentException()
+{
+    //arrange
+    ProfileRepository profiles = new ProfileRepository();
+    //act
+    Action act = () => profiles.GetSettingsForUserID("");
+    //assert
+    ArgumentException exception = Assert.Throws<ArgumentException>(act);
+    //The thrown exception can be used for even more detailed assertions.
+    Assert.Equal("expected error message here", exception.Message);
+}
+```
