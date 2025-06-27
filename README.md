@@ -214,3 +214,15 @@ public void ProfileRepository_GetSettingsForUserIDWithInvalidArguments_ThrowsArg
     Assert.Equal("expected error message here", exception.Message);
 }
 ```
+
+## .NET Components
+
+- **Language Compilers** : These turn your source code into **intermediate language (IL)** code stored in assemblies. The compiler is **Roslyn**.
+- **Common Language Runtime(CLR)** : This runtime loads assemblies, compiles the IL code stored in them into native code instructions for your computer’s CPU, and executes the code within an environment that manages resources, such as threads and memory.
+- **Base Class Libraries** : These are prebuilt assemblies of types packaged and distributed using NuGet to perform common tasks when building applications. 
+
+> An **assembly** is where a type is stored in the filesystem. Assemblies are a mechanism for deploying code. For example, the System.Data.dll assembly contains types to manage data. To use types in other assemblies, they must be referenced. Assemblies can be static (pre-created) or dynamic (generated at runtime). Assemblies are distributed as NuGet packages, which are files that are downloadable from public online feeds and can contain multiple assemblies and other resources.
+
+If an assembly is compiled as a class library and provides types for other assemblies to use, then it has the file extension .dll (dynamic link library), and it cannot be executed standalone. Likewise, if an assembly is compiled as an application, then it has the file extension .exe (executable) and can be executed standalone.
+
+> By default .net applications have a dependency in the .NET SDK.
