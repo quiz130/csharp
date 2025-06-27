@@ -247,3 +247,65 @@ When you install the .NET SDK, it includes a command-line interface (CLI) named 
 | `dotnet remove` | This removes a reference to a package or class library from the project |
 | `dotnet list` | This lists the package or class library references for the project |
 | `dotnet package search` | This allows you to search one or more package sources for packages that match a search term |
+
+## Regular Expressions
+
+- The `@` symbol character switches off the ability to use escape characters in the string. 
+- The `\d` means digit. e.x.g: 
+```c# 
+Regex x = new (@"\d"); x.check(input); // this checks the input if it has a digit inside, not if it is a digit , for example : input = jsd123 this is correct.
+```
+- The `^` symbol indicates the start of the input.
+- The `$` symbol indicates the end of the input.
+```c#
+Regex ageChecker = new(@"^\d$"); // checks if the input starts and end with a digit
+```
+
+| Symbol | Meaning|
+|--------|--------|
+|`^` | Start of the input |
+| `\d` | A single digit |
+| `\s` | Whitespace |
+| `\w` | Word characters |
+| `[A-Za-z0-9]` | Range of characters |
+| `[aeiou]` | Set of characters |
+| `.` | Any single character |
+| `$` | End of the input |
+| `\D` | A single non digit |
+| `\S` | A non whitespace |
+| `\W` | Non word characters|
+| `\^` | caret(^) character|
+| `[^aeiou]` | Not in a set of characters |
+| `\.` | A dot . character |
+
+### Aditional regular expressions that affect previous symbols
+
+| Symbol | Meaning |
+|--------|---------|
+|`+` | One or more |
+|`{3}` | Exactly three |
+|`{3, }` | At least three |
+|`?` |  One or none |
+|`{3, 5}` | Three to five |
+|`{, 3}` | Up to three |
+| `(x|y)` | Can have x or y|
+
+### Exampes of regular expressions 
+
+| Expression | Meaning |
+|------------|---------|
+| `\d` | A single digit somewhere in the input |
+| `a` | The character “a” somewhere in the input |
+| `Bob` | The word “Bob” somewhere in the input |
+| `^Bob` | The word “Bob” at the start of the input |
+| `Bob$` | The word “Bob” at the end of the input |
+| `^\d{2}$` |  Exactly two digits |
+| `^[0-9]{2}$` |  Exactly two digits |
+| `[A-Z]{4,}$` | At least four uppercase English letters in the ASCII character set only |
+| `[A-Za-z]{4,}$` | At least four upper or lowercase English letters in the ASCII character set only |
+| `^[A-Z]{2}\d{3}$` |  Two uppercase English letters in the ASCII character set and three digits only |
+| `^[A-Zaz\u00c0\u017e]+$` | At least one uppercase or lowercase English letter in the ASCII character set or European letters in the Unicode character set |
+| `^d.g$` | The letter d, then any character, and then the letter g, so it would match both single character between the dig and dog or any d and g. |
+| `^d\.g$` | The letter d, then a dot ., and then the letter g, so it would match d.g only |
+
+**You can test the regular expressions at this website : <a href="https://regex101.com/">https://regex101.com/**
