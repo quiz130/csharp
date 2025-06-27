@@ -226,3 +226,24 @@ public void ProfileRepository_GetSettingsForUserIDWithInvalidArguments_ThrowsArg
 If an assembly is compiled as a class library and provides types for other assemblies to use, then it has the file extension .dll (dynamic link library), and it cannot be executed standalone. Likewise, if an assembly is compiled as an application, then it has the file extension .exe (executable) and can be executed standalone.
 
 > By default .net applications have a dependency in the .NET SDK.
+
+## .NET CLI
+
+When you install the .NET SDK, it includes a command-line interface (CLI) named dotnet.
+
+| Commmand | Description |
+|----------|-------------|
+| `dotnet help` | This shows the command-line help.|
+| `dotnet new` | This creates a new .NET project or file |
+| `dotnet tool` | This installs or manages tools that extend the .NET experience |
+| `dotnet restore` | This downloads dependencies for the project, e.x.g: nuget packages |
+| `dotnet build` | This builds, aka compiles, a .NET project |
+| `dotnet clean` | This removes the temporary outputs from a build |
+| `dotnet test` | This builds and then runs unit tests for the project. |
+| `dotnet run` | This builds and then runs the project. |
+| `dotnet pack` | This creates a NuGet package for the project. |
+| `dotnet publish` | This builds and then publishes the project, either with dependencies or as a self-contained application. In .NET 7 and earlier, this published the Debug configuration by default. In .NET 8 and later, it now publishes the Release configuration by default |
+| `dotnet add` | This adds a reference to a package or class library to the project e.xg : a nuget package. |
+| `dotnet remove` | This removes a reference to a package or class library from the project |
+| `dotnet list` | This lists the package or class library references for the project |
+| `dotnet package search` | This allows you to search one or more package sources for packages that match a search term |
