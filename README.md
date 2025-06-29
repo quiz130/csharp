@@ -75,7 +75,14 @@ The **Common Language Runtime(CLR)** it's what actually executes your .NET appli
 
 ![image](https://github.com/user-attachments/assets/343af643-dff4-4e00-8770-2808db83823f)
 
+## ⚙ Debug vs Release
 
+Debug and Release are build modes.
+
+> 💡 Use Debug when you are in development
+> 💡 Use Release when you need to go on production or you need to push your .DLL or .EXE
+
+** The difference is that in Debug mode the code is not optimized, while in Release it is optimized. The Release mode doesn't not print any stack errors, and ignore debug symbols `#if DEBUG`.** 
 
 #  Global using in C#
  
