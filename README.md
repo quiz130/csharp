@@ -82,7 +82,23 @@ Debug and Release are build modes.
 > 💡 Use Debug when you are in development
 > 💡 Use Release when you need to go on production or you need to push your .DLL or .EXE
 
-** The difference is that in Debug mode the code is not optimized, while in Release it is optimized. The Release mode doesn't not print any stack errors, and ignore debug symbols `#if DEBUG`.** 
+**The difference is that in Debug mode the code is not optimized, while in Release it is optimized. The Release mode doesn't not print any stack errors, and ignore debug symbols `#if DEBUG`.** 
+
+## 🔶 dotnet publish 
+
+`dotnet publish` is used for deploying your application. The output of dotnet publish includes the compiled IL, dependencies, and other required files to run the application.
+It is used to prepare your application for deployment. It compiles your code, copies dependencies, and generates all the files needed to run your app on a target system. It's the final step before deploying a .NET application to production or another environment.
+
+| Option                           | Description                                                                   |
+| -------------------------------- | ----------------------------------------------------------------------------- |
+| `-c Release`                     | Publishes in Release mode (instead of Debug).                                 |
+| `-o <output-folder>`             | Sets a custom output folder.                                                  |
+| `--self-contained`               | Publishes the .NET runtime with the app (so .NET isn’t required on the host). |
+| `--runtime <RID>`                | Targets a specific OS/architecture (e.g. `win-x64`, `linux-arm`).             |
+| `--self-contained true` | Used to bundle the .NET runtime with your app, so it runs even on those that don’t have .NET installed.|
+| `--no-restore`                   | Skips dependency restore (faster if already done).                            |
+| `p:PublishSingleFile=true` |This output a single file |
+
 
 #  Global using in C#
  
