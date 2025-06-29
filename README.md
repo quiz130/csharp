@@ -234,6 +234,14 @@ If an assembly is compiled as a class library and provides types for other assem
 
 When you install the .NET SDK, it includes a command-line interface (CLI) named dotnet.
 
+| Command | Description |
+|---------|-------------|
+| `dotnet new sln` | Create a new solution in the current folder, you can specify the `-o` to name it|
+| `dotnet new typeofproject` | Creates a new project, you can the `-o` option to name it |
+| `dotnet sln add projectnaem` | Add a project to the solution |
+| `dotnet add package packagename` | Add a new nuget package |
+| `dotnet new gitignore` | Create a .gitignore file with all the removed files |
+
 | Commmand | Description |
 |----------|-------------|
 | `dotnet help` | This shows the command-line help.|
