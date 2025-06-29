@@ -43,7 +43,7 @@ If you have a pre-built app (e.g., `dll`) and just want to run it: ``dotnet MyAp
 
 The C# compiler (named Roslyn) used by the dotnet CLI tool converts your C# source code into intermediate language (IL) code and stores the IL in an assembly (a DLL or EXE file)
 
-**The Common Language Runtime(CLR) it's what actually executes your .NET applications.**
+**The Common Language Runtime(CLR) it's what actually executes your .NET applications, and it manages the execution of .net code**
 
 # ⚙️ Common Language Runtime (CLR)
 
@@ -72,6 +72,9 @@ The **Common Language Runtime(CLR)** it's what actually executes your .NET appli
 3. ⚙️ The **CLR** loads the IL code at runtime
 4. 🧠 The **JIT Compiler** translates IL into native machine code
 5. 🧩 The code runs on your operating system with full runtime services
+
+![image](https://github.com/user-attachments/assets/343af643-dff4-4e00-8770-2808db83823f)
+
 
 
 #  Global using in C#
