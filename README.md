@@ -343,3 +343,233 @@ Regex ageChecker = new(@"^\d$"); // checks if the input starts and end with a di
 | `^d\.g$` | The letter d, then a dot ., and then the letter g, so it would match d.g only |
 
 **You can test the regular expressions at this website : <a href="https://regex101.com/">https://regex101.com/**
+
+# 🔷 Reflection 
+
+Reflection enables you to analyze, inspect, and interact with the metadata of types, objects, and assemblies during runtime.
+
+```c#
+using System.Reflection; // the namespace you need to import to use reflection
+```
+
+**All types in C# derive from the System.Object class, which has four methods directly connected to reflection.**
+
+1. `GetType()`: Gets the `Type` of the current instance.
+2. `MemberwiseClone()`: Creates a shallow copy of the current object.
+3. `GetHashCode()`: Generates a hashcode for the current object.
+4. `ToString()`: Returns a string representation of the current object.
+
+🔸 The most critical reflection method here is `GetType()`.
+```c#
+int someNumber = 42;
+Type numberType = someNumber.GetType();
+Console.WriteLine(numberType.FullName); // System.Int32
+```
+> By using `GetType()` on the someNumber variable, we can get the `Type` object associated with it `(System.Int32)`, providing a gateway to further reflection possibilities.
+
+### 🔴 Get Method Name and Class Information
+
+To extract or manipulate metadata from a Type object, use the properties and methods provided by the `Type` class.
+
+```c#
+// Using typeof keyword
+Type exampleType = typeof(String);
+Console.WriteLine(exampleType.FullName); // System.String
+
+// Get properties & methods from Type
+PropertyInfo[] properties = exampleType.GetProperties();
+MethodInfo[] methods = exampleType.GetMethods();
+
+// Display property names
+foreach (PropertyInfo prop in properties)
+{
+    Console.WriteLine(prop.Name);
+}
+
+// Get the method name in C#
+foreach (MethodInfo method in methods)
+{
+    Console.WriteLine(method.Name);
+}
+```
+### 🟠 Get Assembly Details in C#
+
+To load an assembly and extract its metadata, you can use the `Assembly` class and its various methods.
+
+```c#
+// Get the current assembly
+Assembly currentAssembly = Assembly.GetExecutingAssembly();
+
+// Get the assembly details
+Console.WriteLine($"FullName: {currentAssembly.FullName}");
+Console.WriteLine($"Location: {currentAssembly.Location}");
+
+// Getypes from assembly
+Type[] assemblyTypes = currentAssembly.GetTypes();
+foreach (Type type in assemblyTypes)
+{
+    Console.WriteLine(type.FullName);
+}
+```
+### 🟡 Create Instance of Class Dynamically
+
+Creating instances of objects during runtime can be an essential part of reflection. To create an instance of a class without knowing its type at compile-time, you can use the `Activator.CreateInstance()` method.
+```c#
+Type exampleType = typeof(List<int>);
+object exampleInstance = Activator.CreateInstance(exampleType);
+```
+
+> The `Activator` class plays a crucial role in reflection when you need to instantiate an object for an unknown type at compile-time. It provides methods to create types of objects locally or remotely, or obtain references to existing remote objects. You can create instances of objects with specific constructor arguments, in a different application domain, or with specific activation attributes – all thanks to Activator’s methods.
+
+### 🟢 Invoking Methods Dynamically
+
+```c#
+public class Calculator
+{
+    public int Add(int a, int b)
+    {
+        return a + b;
+    }
+}
+
+// Get Type of Calculator class
+Type calculatorType = typeof(Calculator);
+
+// Create an instance of Calculator
+object calculatorInstance = Activator.CreateInstance(calculatorType);
+
+// Get the Add method
+MethodInfo addMethod = calculatorType.GetMethod("Add");
+
+// Invoke the Add method dynamically
+object result = addMethod.Invoke(calculatorInstance, new object[] { 10, 20 });
+Console.WriteLine($"10 + 20 = {result}"); // 10 + 20 = 30
+```
+
+In this example, we have a Calculator class with an Add method. We create an instance of the Calculator using `Activator.CreateInstance()`. Then, we get the Add method using `GetMethod("Add")`, and finally, we invoke the `Add` method dynamically, passing the required parameters and displaying the result on the console.
+
+### 🔵 Add Property to Dynamic Object Using Reflection
+
+```c#
+using System.Dynamic;
+
+// Create a dynamic object
+dynamic expando = new ExpandoObject();
+
+// Add properties using dynamic keyword
+expando.FirstName = "John";
+expando.LastName = "Doe";
+
+// Use PropertyInfo to add properties by reflection
+Type expandoType = expando.GetType();
+PropertyInfo ageProperty = expandoType.GetProperty("Age");
+if (ageProperty == null)
+{
+    IDictionary<string, object> expandoDict = (IDictionary<string, object>)expando;
+    expandoDict["Age"] = 30;
+}
+
+Console.WriteLine($"{expando.FirstName} {expando.LastName}, {expando.Age} years old");
+```
+
+In this example, we demonstrate how to add property to a dynamic object using reflection. We create a dynamic object using ExpandoObject and add properties using the dynamic keyword. For reflection usage, we get the ExpandoObject type, check if the “Age” property exists, and add it to the dynamic object if it doesn’t exist already. Finally, we display the properties on the console.
+
+### 🟣 Loading Assemblies and Types
+
+```c#
+// Load an assembly (replace with actual assembly file)
+Assembly externalAssembly = Assembly.LoadFile(@"C:\path\to\your\assembly.dll");
+
+// Get all the types in the assembly
+Type[] assemblyTypes = externalAssembly.GetTypes();
+
+// Find a specific type by its name
+Type targetType = assemblyTypes.FirstOrDefault(t => t.Name == "TargetTypeName");
+
+// Create an instance of the targetType (if found)
+if (targetType != null)
+{
+    object targetInstance = Activator.CreateInstance(targetType);
+}
+```
+In this example, we load an external assembly from a file path (replace with an actual assembly file path) using Assembly.LoadFile(). Afterward, we retrieve all types within the assembly, find a specific type by its name using LINQ FirstOrDefault(), and then create an instance of the target type using Activator.CreateInstance().
+
+## 🟥 Advanced C# Reflection Techniques
+
+**Custom Attributes and Metadata**
+
+Attributes are nothing but metadata applied to programs. They allow you to add extra information to types, members or assemblies that can later be queried, validated, or manipulated through reflection.
+```c#
+// Custom attribute definition
+public class MyCustomAttribute : Attribute
+{
+    public string Description { get; }
+
+    public MyCustomAttribute(string description)
+    {
+        Description = description;
+    }
+}
+
+[MyCustomAttribute("This is a custom attribute applied to a class.")]
+public class ExampleClass
+{
+    // ...
+}
+
+// Get the custom attribute from ExampleClass
+Type exampleType = typeof(ExampleClass);
+object[] attributes = exampleType.GetCustomAttributes(typeof(MyCustomAttribute), false);
+if (attributes.Length > 0)
+{
+    MyCustomAttribute customAttribute = (MyCustomAttribute)attributes[0];
+    Console.WriteLine($"Custom Attribute: {customAttribute.Description}");
+}
+```
+In this example, we create a `MyCustomAttribute` class inheriting from the `Attribute` class. We then apply this custom attribute to an `ExampleClass` and later query it using the `GetCustomAttributes()` method. Once retrieved, we cast the attribute to its specific type and access its properties.
+
+### 🟤 Using Reflection in C# to Generate Code
+
+You can inspect types, objects, or assemblies, and based on their metadata, generate code snippets or whole classes/structures during runtime.
+```c#
+public class Customer
+{
+    public string FirstName { get; set; }
+    public int BirthYear { get; set; }
+}
+
+public static void GenerateObjectInitializer(Type targetType)
+{
+    StringBuilder builder = new StringBuilder($"new {targetType.Name}\n{{\n");
+    PropertyInfo[] properties = targetType.GetProperties();
+
+    foreach (PropertyInfo property in properties)
+    {
+        builder.AppendLine($"{property.Name} = default({property.PropertyType.Name}),");
+    }
+
+    builder.AppendLine("};");
+    string generatedCode = builder.ToString();
+    Console.WriteLine(generatedCode);
+}
+
+// Call the GenerateObjectInitializer method
+GenerateObjectInitializer(typeof(Customer));
+
+// Output:
+// new Customer
+// {
+//     FirstName = default(String),
+//     BirthYear = default(Int32),
+// };
+```
+
+The `GenerateObjectInitializer()` method takes a `Type` parameter and generates the corresponding object initializer code for that type. We then call this method, passing `typeof(Customer)` in, and see the generated code printed on the console.
+
+Key aspects when using reflection for code generation :                                                                                              
+- **Performance**:  Reflection can be slower compared to conventional coding practices. Excessive usage or relentless iteration may lead to performance bottlenecks. Optimize your code and use caching whenever possible.
+- **Security**: Reflection may expose private members, providing inappropriate access, or expose sensitive information.
+
+  
+
+  
